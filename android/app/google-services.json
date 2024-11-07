@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:796950624853:android:84cfae377860fc4460b2dc",
         "android_client_info": {
-          "package_name": "com.carrental.app"
+          "package_name": "com.example.car_rental"
         }
       },
       "oauth_client": [],
