@@ -8,3 +8,4 @@ class Car {
 
   Car(this.model, this.pricePerHour, this.fuelCapacity, this.distance, this.imageUrl);
 }
+  
