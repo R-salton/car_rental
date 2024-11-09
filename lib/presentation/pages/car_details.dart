@@ -4,12 +4,39 @@ import 'package:car_rental/presentation/widgets/car_card.dart';
 import 'package:car_rental/presentation/widgets/more_card.dart';
 import 'package:flutter/material.dart';
 
-class CarDetails extends StatelessWidget {
+class CarDetails extends StatefulWidget {
   final List<Car> moreCars;
   final Car clickedCar;
 
   const CarDetails(
       {super.key, required this.clickedCar, required this.moreCars});
+
+  @override
+  State<CarDetails> createState() => _CarDetailsState();
+}
+
+class _CarDetailsState extends State<CarDetails> with TickerProviderStateMixin {
+  AnimationController? _animationController;
+  Animation<double>? _animation;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    _animation =
+        Tween<double>(begin: 1.0, end: 1.5).animate(_animationController!)
+          ..addListener(() {
+            setState(() {});
+          });
+    _animationController!.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +60,7 @@ class CarDetails extends StatelessWidget {
         child: Column(
           children: [
             CarCard(
-              car: clickedCar,
+              car: widget.clickedCar,
             ),
             SizedBox(
               height: 20,
@@ -87,16 +114,12 @@ class CarDetails extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MapDetails(
-                                      car: clickedCar,
+                                      car: widget.clickedCar,
                                     )));
                       },
                       child: Container(
                         height: 170,
                         decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/maps.png'),
-                              fit: BoxFit.cover,
-                            ),
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
@@ -105,6 +128,17 @@ class CarDetails extends StatelessWidget {
                                 color: Colors.black12,
                               )
                             ]),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Transform.scale(
+                            scale: _animation!.value,
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              'assets/images/maps.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   )
@@ -119,7 +153,7 @@ class CarDetails extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          MoreCard(car: moreCars[index]),
+                          MoreCard(car: widget.moreCars[index]),
                           SizedBox(
                             height: 5,
                           )
