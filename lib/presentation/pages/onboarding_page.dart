@@ -54,12 +54,11 @@ class OnboardingPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         //Navigate to home screen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CarListScreen(),
-                          ),
-                        );
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => CarListScreen(),
+                            ),
+                            (route) => false);
                       },
                       child: Text(
                         "Lets Go",
