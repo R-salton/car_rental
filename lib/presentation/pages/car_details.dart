@@ -1,4 +1,5 @@
 import 'package:car_rental/Data/models/car.dart';
+import 'package:car_rental/presentation/pages/map_details.dart';
 import 'package:car_rental/presentation/widgets/car_card.dart';
 import 'package:car_rental/presentation/widgets/more_card.dart';
 import 'package:flutter/material.dart';
@@ -80,21 +81,31 @@ class CarDetails extends StatelessWidget {
                     width: 10,
                   ),
                   Expanded(
-                    child: Container(
-                      height: 170,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/maps.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 10,
-                              spreadRadius: 5,
-                              color: Colors.black12,
-                            )
-                          ]),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MapDetails(
+                                      car: clickedCar,
+                                    )));
+                      },
+                      child: Container(
+                        height: 170,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/maps.png'),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 10,
+                                spreadRadius: 5,
+                                color: Colors.black12,
+                              )
+                            ]),
+                      ),
                     ),
                   )
                 ],

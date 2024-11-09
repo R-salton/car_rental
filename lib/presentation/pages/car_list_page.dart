@@ -4,7 +4,7 @@ import 'package:car_rental/presentation/widgets/car_card.dart';
 import 'package:flutter/material.dart';
 
 class CarListScreen extends StatelessWidget {
-  CarListScreen({super.key});
+  const CarListScreen({super.key});
 
   
 

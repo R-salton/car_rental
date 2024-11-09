@@ -1,5 +1,4 @@
 import 'package:car_rental/firebase_options.dart';
-import 'package:car_rental/presentation/pages/car_details.dart';
 import 'package:car_rental/presentation/pages/map_details.dart';
 import 'package:car_rental/presentation/pages/onboarding_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,7 +35,7 @@ class MainApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Scaffold(body: MapDetails(),),
+      home: Scaffold(body:OnboardingPage(),),
     );
   }
 }
