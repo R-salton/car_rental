@@ -1,3 +1,4 @@
+import 'package:car_rental/Data/data_sources/get_location.dart';
 import 'package:car_rental/Data/models/car.dart';
 import 'package:car_rental/presentation/pages/map_details.dart';
 import 'package:car_rental/presentation/widgets/car_card.dart';
@@ -18,9 +19,16 @@ class CarDetails extends StatefulWidget {
 class _CarDetailsState extends State<CarDetails> with TickerProviderStateMixin {
   AnimationController? _animationController;
   Animation<double>? _animation;
+  final LocationService locationService = LocationService();
+  double? latitude;
+  double? longitude;
 
   @override
   void initState() {
+    setState(() {
+      _getLocation();
+    });
+
     _animationController =
         AnimationController(duration: const Duration(seconds: 3), vsync: this);
     _animation =
@@ -36,6 +44,18 @@ class _CarDetailsState extends State<CarDetails> with TickerProviderStateMixin {
   void dispose() {
     super.dispose();
     _animationController!.dispose();
+  }
+
+  Future<void> _getLocation() async {
+    try {
+      Map<String, double> location = await locationService.getLocation();
+      latitude = location['latitude']!;
+      longitude = location['longitude']!;
+
+      print("${location['latitude']}");
+    } catch (e) {
+      print('Error fetching location: $e');
+    }
   }
 
   @override
@@ -114,6 +134,8 @@ class _CarDetailsState extends State<CarDetails> with TickerProviderStateMixin {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MapDetails(
+                                      longitude: longitude!,
+                                      latitude: latitude!,
                                       car: widget.clickedCar,
                                     )));
                       },

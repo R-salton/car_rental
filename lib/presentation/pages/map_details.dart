@@ -1,3 +1,4 @@
+import 'package:car_rental/Data/data_sources/get_location.dart';
 import 'package:car_rental/Data/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -5,8 +6,15 @@ import 'package:latlong2/latlong.dart';
 
 class MapDetails extends StatelessWidget {
   final Car car;
+  final double longitude;
+  final double latitude;
 
-  const MapDetails({super.key, required this.car});
+  const MapDetails({
+    super.key,
+    required this.car,
+    required this.longitude,
+    required this.latitude,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class MapDetails extends StatelessWidget {
         children: [
           FlutterMap(
             options: MapOptions(
-              initialCenter: LatLng(51, -0.09),
+              initialCenter: LatLng(latitude, longitude),
               initialZoom: 13.0,
             ),
             children: [

@@ -1,8 +1,37 @@
+import 'package:car_rental/Data/data_sources/get_location.dart';
 import 'package:car_rental/presentation/pages/car_list_page.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
+
+  @override
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  final LocationService locationService = LocationService();
+  final List locations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getLocation();
+  }
+
+
+
+  Future<void> _getLocation() async {
+    try {
+      Map<String, double> location = await locationService.getLocation();
+      double latitude = location['latitude']!;
+      double longitude = location['longitude']!;
+
+      print("${location['latitude']}");
+    } catch (e) {
+      print('Error fetching location: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
