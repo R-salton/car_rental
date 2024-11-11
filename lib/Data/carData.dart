@@ -8,3 +8,4 @@ List<Car> carList = [
       "assets/images/tesla_model_3.png"), // Assuming electric with no fuel capacity
   Car("BMW 3 Series", 28.0, 55.0, 180.0, "assets/images/bmw_3_series.png"),
 ];
+ 

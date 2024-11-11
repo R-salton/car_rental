@@ -1,14 +1,18 @@
 import 'package:car_rental/firebase_options.dart';
+import 'package:car_rental/presentation/bloc/car_bloc.dart';
+import 'package:car_rental/presentation/injection_container.dart';
 import 'package:car_rental/presentation/pages/onboarding_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  initInjection();
   runApp(MainApp());
 }
 
@@ -27,14 +31,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) =>getIt<CarBloc>()..add(CarLoadingEvent()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: Scaffold(
+          body: OnboardingPage(),
+        ),
       ),
-      home: Scaffold(body:OnboardingPage(),),
     );
   }
 }
